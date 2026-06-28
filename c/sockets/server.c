@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define PORT "8888"
-#define BUFFER_SIZE 512
+#define BUFFER_SIZE 8
 
 int main() 
 {
