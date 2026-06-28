@@ -5,8 +5,7 @@
 
 char* filename;
 
-void Write(char* text)
-{
+void Write(char* text) {
     FILE* fp = fopen(filename, "wb");
     
     int wrote = fwrite(text, sizeof(char), strlen(text), fp);
@@ -16,14 +15,12 @@ void Write(char* text)
     fclose(fp);
 }
 
-void Append(char* text)
-{
+void Append(char* text) {
     FILE* fp = fopen(filename, "rb");
     FILE* tmp = fopen("temp.bin", "wb");  
 
     int ch;
-    while ((ch = fgetc(fp)) != EOF)
-    {
+    while ((ch = fgetc(fp)) != EOF) {
         fputc(ch, tmp);
         if (ch == '\n')
             break;
@@ -42,11 +39,10 @@ void Append(char* text)
 
     remove(filename);
     rename("temp.bin", filename);
-;
+
 }
 
-void Read()
-{
+void Read() {
     FILE* fp = fopen(filename, "rb");
     
     char buffer[64];
@@ -56,8 +52,7 @@ void Read()
     fclose(fp);
 }
 
-int GetSize()
-{
+int GetSize() {
     FILE* fp = fopen(filename, "rb");
 
     fseek(fp, 0, SEEK_END);
@@ -68,8 +63,7 @@ int GetSize()
     return size;
 }
 
-int main()
-{
+int main() {
     filename = "code.bin";
     
     Append("adrien\n");

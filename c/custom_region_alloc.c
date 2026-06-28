@@ -1,8 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 
-int main() 
-{    
+int main() {    
     LPVOID lpAddress1 = VirtualAlloc(NULL, 0x1000, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
     printf("Region 1 allocated at: 0x%p\n", lpAddress1);
 

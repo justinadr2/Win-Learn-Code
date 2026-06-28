@@ -8,8 +8,7 @@
 
 HWND gStaticPid;
 
-void LaunchExeAndShowPid(HWND hwnd)
-{
+void LaunchExeAndShowPid(HWND hwnd) {
     OPENFILENAMEA ofn;
     char filePath[MAX_PATH] = {0};
 
@@ -30,8 +29,7 @@ void LaunchExeAndShowPid(HWND hwnd)
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
 
-    if (CreateProcessA(filePath, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
-    {
+    if (CreateProcessA(filePath, NULL, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
         char buf[128];
         sprintf(buf, "Launched %s\nProcess ID: %lu", filePath, pi.dwProcessId);
         SetWindowTextA(gStaticPid, buf);
@@ -39,16 +37,13 @@ void LaunchExeAndShowPid(HWND hwnd)
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
     }
-    else
-    {
+    else {
         MessageBoxA(hwnd, "Failed to launch process", "Error", MB_ICONERROR);
     }
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-    switch (msg)
-    {
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch (msg) {
     case WM_CREATE:
         CreateWindowA(
             "BUTTON", "Open .exe and Launch",
@@ -68,8 +63,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_COMMAND:
-        if (LOWORD(wParam) == ID_BUTTON_OPEN)
-        {
+        if (LOWORD(wParam) == ID_BUTTON_OPEN) {
             LaunchExeAndShowPid(hwnd);
         }
         break;
@@ -84,8 +78,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     WNDCLASSA wc;
     ZeroMemory(&wc, sizeof(wc));
 
@@ -108,8 +101,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
 
     MSG msg;
-    while (GetMessageA(&msg, NULL, 0, 0))
-    {
+    while (GetMessageA(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessageA(&msg);
     }

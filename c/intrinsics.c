@@ -3,8 +3,7 @@
 #include <stdint.h>
 #include <intrin.h>
 
-int main(void) 
-{
+int main(void) {
     uint64_t t = __rdtsc();
 
     printf("%X\n", t);

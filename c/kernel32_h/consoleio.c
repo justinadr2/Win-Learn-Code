@@ -1,8 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 
-int main()
-{
+int main() {
     HANDLE hIn, hOut;
     char buffer[128];
     DWORD bytesRead = 0, bytesWritten = 0;

@@ -7,14 +7,12 @@
 #define PORT "8888"
 #define BUFFER_SIZE 512
 
-DWORD WINAPI client_thread(LPVOID arg)
-{
+DWORD WINAPI client_thread(LPVOID arg) {
     SOCKET client_sock = (SOCKET)arg;
     char buffer[BUFFER_SIZE];
     int recv_size;
 
-    while ((recv_size = recv(client_sock, buffer, BUFFER_SIZE - 1, 0)) > 0)
-    {
+    while ((recv_size = recv(client_sock, buffer, BUFFER_SIZE - 1, 0)) > 0) {
         buffer[recv_size] = '\0';
         printf("Client [%llu]: %s\n", (unsigned long long)GetCurrentThreadId(), buffer);
 
@@ -28,15 +26,14 @@ DWORD WINAPI client_thread(LPVOID arg)
     return 0;
 }
 
-int main()
-{
+int main() {
     WSADATA wsa;
     SOCKET listen_sock;
     struct addrinfo hints, *res;
 
     WSAStartup(MAKEWORD(2,2), &wsa);
 
-    ZeroMemory(&hints, sizeof(hints));
+    memset(&hints, 0, sizeof(hints));
     hints.ai_family   = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags    = AI_PASSIVE;
@@ -50,8 +47,8 @@ int main()
     listen(listen_sock, SOMAXCONN);
     printf("Server listening on port %s...\n", PORT);
 
-    while (1)
-    {
+    while (1) {
+
         SOCKET client_sock = accept(listen_sock, NULL, NULL);
         if (client_sock == INVALID_SOCKET)
             continue;

@@ -6,8 +6,7 @@
 #define PORT "8888"
 #define BUFFER_SIZE 512
 
-int main() 
-{
+int main() {
     WSADATA wsa;
     SOCKET sock;
     struct addrinfo hints, *res;
@@ -18,7 +17,7 @@ int main()
         return 1;
     }
 
-    ZeroMemory(&hints, sizeof(hints));
+    memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
 
@@ -31,8 +30,7 @@ int main()
         return 1;
     }
 
-    if (connect(sock, res->ai_addr, (int)res->ai_addrlen) == SOCKET_ERROR) 
-    {
+    if (connect(sock, res->ai_addr, (int)res->ai_addrlen) == SOCKET_ERROR) {
         printf("Connect failed\n");
         closesocket(sock);
         WSACleanup();
@@ -43,8 +41,7 @@ int main()
 
     printf("Connected to server. Type messages:\n");
 
-    while (1) 
-    {
+    while (1) {
         printf("> ");
         fgets(buffer, BUFFER_SIZE, stdin);
 

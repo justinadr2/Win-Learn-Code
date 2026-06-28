@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void RunChild(const char* type, HANDLE hIn, HANDLE hOut, int parentPid) 
-{
+void RunChild(const char* type, HANDLE hIn, HANDLE hOut, int parentPid) {
     char buffer[256] = {0};
     char response[256] = {0};
     DWORD bytesRead, bytesWritten;
@@ -12,20 +11,16 @@ void RunChild(const char* type, HANDLE hIn, HANDLE hOut, int parentPid)
     printf("[%s] Parent PID: %d\n", type, parentPid);
     printf("[%s] Receiving commands...\n", type);
     
-    if (ReadFile(hIn, buffer, sizeof(buffer) - 1, &bytesRead, NULL)) 
-    {
+    if (ReadFile(hIn, buffer, sizeof(buffer) - 1, &bytesRead, NULL)) {
         printf("[%s] Parent said: \"%s\"\n", type, buffer);
 
-        if (strstr(buffer, "utilize-algorithm")) 
-        {
+        if (strstr(buffer, "utilize-algorithm")) {
             strcpy(response, "Utilizing algorithm...");
         }
-        else if (strstr(buffer, "render-triangle")) 
-        {
+        else if (strstr(buffer, "render-triangle")) {
             strcpy(response, "Rendering triangle...");
         } 
-        else 
-        {
+        else {
             strcpy(response, "[CHILD] Message received, but no command recognized.");
         }
 
@@ -36,10 +31,8 @@ void RunChild(const char* type, HANDLE hIn, HANDLE hOut, int parentPid)
     getchar();
 }
 
-int main(int argc, char* argv[]) 
-{    
-    if (argc > 4) 
-    {
+int main(int argc, char* argv[]) {    
+    if (argc > 4) {
         HANDLE hIn = (HANDLE)atoi(argv[2]);
         HANDLE hOut = (HANDLE)atoi(argv[3]);
         int parentPid = atoi(argv[4]);

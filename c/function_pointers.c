@@ -4,23 +4,19 @@
 #include <stdlib.h>
 #include <intrin.h>
 
-int sub(int a, int b)
-{
+int sub(int a, int b) {
     return a - b;
 }
 
-int add(int a, int b)
-{
+int add(int a, int b) {
     return a + b;
 }
 
-int calc(int(*func)(int, int), int x, int y)
-{
+int calc(int(*func)(int, int), int x, int y) {
     return func(x, y);
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     printf("%i\n", calc(add, 4, 5));
     
     printf("%i\n", calc(sub, 10, 8));

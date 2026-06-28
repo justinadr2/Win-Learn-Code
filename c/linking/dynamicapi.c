@@ -3,7 +3,6 @@
 #include <windows.h>
 
 
-void _dynamicFunction(char* message)
-{
+void _dynamicFunction(char* message) {
     MessageBoxA(NULL, message, "My Dynamic API App", MB_OK);
 }

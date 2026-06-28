@@ -8,8 +8,7 @@
 
 HWND g_hEdit;
 
-void OpenAndDisplayFile(HWND hwnd)
-{
+void OpenAndDisplayFile(HWND hwnd) {
     OPENFILENAMEA ofn;
     char filePath[MAX_PATH] = {0};
 
@@ -34,23 +33,20 @@ void OpenAndDisplayFile(HWND hwnd)
         NULL
     );
 
-    if (hFile == INVALID_HANDLE_VALUE)
-    {
+    if (hFile == INVALID_HANDLE_VALUE) {
         MessageBoxA(hwnd, "Failed to open file", "Error", MB_ICONERROR);
         return;
     }
 
     DWORD fileSize = GetFileSize(hFile, NULL);
-    if (fileSize == INVALID_FILE_SIZE || fileSize == 0)
-    {
+    if (fileSize == INVALID_FILE_SIZE || fileSize == 0) {
         CloseHandle(hFile);
         MessageBoxA(hwnd, "Invalid or empty file", "Error", MB_ICONERROR);
         return;
     }
 
     char* buffer = (char*)HeapAlloc(GetProcessHeap(), 0, fileSize + 1);
-    if (!buffer)
-    {
+    if (!buffer) {
         CloseHandle(hFile);
         return;
     }
@@ -62,8 +58,7 @@ void OpenAndDisplayFile(HWND hwnd)
     buffer[bytesRead] = '\0';
 
     // convert non-printable ASCII to '.'
-    for (DWORD i = 0; i < bytesRead; i++)
-    {
+    for (DWORD i = 0; i < bytesRead; i++) {
         unsigned char c = buffer[i];
         if (c < 32 || c > 126)
             buffer[i] = '.';
@@ -74,12 +69,9 @@ void OpenAndDisplayFile(HWND hwnd)
     HeapFree(GetProcessHeap(), 0, buffer);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-    switch (msg)
-    {
-    case WM_CREATE:
-    {
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch (msg) {
+    case WM_CREATE: {
         CreateWindowA(
             "BUTTON", "Open File",
             WS_VISIBLE | WS_CHILD,
@@ -101,8 +93,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
 
     case WM_COMMAND:
-        if (LOWORD(wParam) == ID_OPEN_BUTTON)
-        {
+        if (LOWORD(wParam) == ID_OPEN_BUTTON) {
             OpenAndDisplayFile(hwnd);
         }
         break;
@@ -116,11 +107,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
-
-// ------------------------------------------------------------
-
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     WNDCLASSA wc;
     ZeroMemory(&wc, sizeof(wc));
 
@@ -143,8 +130,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     ShowWindow(hwnd, nCmdShow);
 
     MSG msg;
-    while (GetMessageA(&msg, NULL, 0, 0))
-    {
+    while (GetMessageA(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessageA(&msg);
     }

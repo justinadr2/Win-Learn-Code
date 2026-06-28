@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-int main() 
-{
+int main() {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;

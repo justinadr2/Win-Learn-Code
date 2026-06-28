@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-int main(int argc, char* argv[]) 
-{
+int main(int argc, char* argv[]) {
     if (argc < 2)
         return 1;   
 
@@ -13,23 +12,20 @@ int main(int argc, char* argv[])
 
     HANDLE proc = OpenProcess(PROCESS_VM_WRITE | PROCESS_VM_OPERATION, FALSE, pid);
     
-    while (1)
-    {
+    while (1) {
         printf("Enter address: ");
         scanf("%Ix", &addr);
 
         printf("Enter 8-byte value: 0x");
         scanf("%llx", (unsigned long long*)&value);
 
-        if (!proc) 
-        {
+        if (!proc) {
             printf("OpenProcess failed (%lu)\n", GetLastError());
             return 1;
         }
 
         SIZE_T written;
-        if (!WriteProcessMemory(proc, (LPVOID)addr, &value, sizeof(value), &written)) 
-        {
+        if (!WriteProcessMemory(proc, (LPVOID)addr, &value, sizeof(value), &written)) {
             printf("WriteProcessMemory failed (%lu)\n", GetLastError());
             CloseHandle(proc);
             return 1;

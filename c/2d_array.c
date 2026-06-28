@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main()
-{
-    
+int main() {
     int** heap = (int**)malloc(sizeof(int*) * 16);
 
     heap[0] = (int*)malloc(sizeof(int));
@@ -19,7 +17,6 @@ int main()
     free(heap[0]);
     free(heap[1]);
     free(heap);
-
 
     /* */
     int a = 0xbaad;

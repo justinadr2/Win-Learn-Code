@@ -4,10 +4,8 @@
 #define ID_BUTTON_HELLO  1
 #define ID_BUTTON_EXIT   2
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-    switch (msg)
-    {
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    switch (msg) {
     case WM_CREATE:
         CreateWindowW(L"BUTTON", L"Say Hello", WS_VISIBLE | WS_CHILD, 50, 50, 120, 30, hwnd, (HMENU)ID_BUTTON_HELLO, NULL, NULL);
 
@@ -15,8 +13,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_COMMAND:
-        switch (LOWORD(wParam))
-        {
+        switch (LOWORD(wParam)) {
         case ID_BUTTON_HELLO: MessageBoxW(hwnd, L"Hello from Win32!", L"Message", MB_OK); 
         break;
 
@@ -36,8 +33,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLine, int nCmdShow)
-{
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLine, int nCmdShow) {
     WNDCLASSW wc = {0};
 
     wc.lpfnWndProc   = WndProc;
@@ -52,8 +48,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
     ShowWindow(hwnd, nCmdShow);
 
     MSG msg;
-    while (GetMessageW(&msg, NULL, 0, 0))
-    {
+    while (GetMessageW(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessageW(&msg);
     }

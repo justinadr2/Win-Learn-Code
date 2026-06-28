@@ -1,12 +1,10 @@
 #include <windows.h>
 
-void SetCurrentThreadName(const wchar_t* name)
-{
+void SetCurrentThreadName(const wchar_t* name) {
     SetThreadDescription(GetCurrentThread(), name);
 }
 
-void Worker()
-{
+void Worker() {
     SetCurrentThreadName(L"Custom worker thread");
 
     printf("worker thread: %d\n", GetCurrentThreadId());
@@ -14,8 +12,7 @@ void Worker()
     return 0;
 }
 
-int main()
-{
+int main() {
     HANDLE thread;
 
     printf("main thread: %d\n", GetCurrentThreadId());

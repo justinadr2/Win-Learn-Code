@@ -4,8 +4,7 @@
 
 #define GET_OFFSET(st, m) ((size_t)&(((st*)0)->m))
 
-typedef struct Vec3_
-{
+typedef struct Vec3_ {
     int x;
     int y;
     int z;
@@ -15,8 +14,7 @@ typedef struct Vec3_
     char* name;
 } Vec3;
 
-int main() 
-{
+int main() {
     char name[] = "JUSTINADR";
     for (int i = 0; i < sizeof(name); i++)
         printf("%X = %X (%c)\n", &name[i], name[i], name[i]);
@@ -29,8 +27,7 @@ int main()
 
     printf("\n");
 
-    Vec3 vecs[] = 
-    {
+    Vec3 vecs[] = {
         { 0x11, 0x22, 0x33, "positions"},
         { 0x44, 0x55, 0x66, "coordinates"}
     };
@@ -38,8 +35,7 @@ int main()
     printf("size of vecs = %i\n", sizeof(vecs));
     printf("size of Vec3 = %i\n", sizeof(Vec3));
 
-    for (int i = 0; i < sizeof(vecs) / sizeof(vecs[0]); i++)
-    {
+    for (int i = 0; i < sizeof(vecs) / sizeof(vecs[0]); i++) {
         printf("%X = %X\n", &(*(vecs + i)).x, vecs[i].x);
         printf("%X = %X\n", &(*(vecs + i)).y, vecs[i].y);
         printf("%X = %X\n", &vecs[i].z, vecs[i].z);

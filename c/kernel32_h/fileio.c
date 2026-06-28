@@ -1,8 +1,7 @@
 #include <windows.h>
 #include <stdio.h>
 
-int main() 
-{
+int main() {
     HANDLE hFile;
     DWORD bytesWritten, bytesRead;
     char buffer[1024];

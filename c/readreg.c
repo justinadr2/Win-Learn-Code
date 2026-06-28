@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <tlhelp32.h>
 
-void PrintRegisters(CONTEXT* ctx) 
-{
+void PrintRegisters(CONTEXT* ctx) {
     printf("RAX = 0x%llX\n", ctx->Rax);
     printf("RBX = 0x%llX\n", ctx->Rbx);
     printf("RCX = 0x%llX\n", ctx->Rcx);
@@ -25,10 +24,8 @@ void PrintRegisters(CONTEXT* ctx)
 }
 
 
-int main(int argc, char* argv[]) 
-{
-    if (argc != 2) 
-    {
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
         printf("Usage: %s <PID>\n", argv[0]);
         return 1;
     }
@@ -36,16 +33,14 @@ int main(int argc, char* argv[])
     DWORD pid = atoi(argv[1]);
 
     HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
-    if (!hProcess) 
-    {
+    if (!hProcess) {
         printf("Failed to open process. Error: %lu\n", GetLastError());
         return 1;
     }
 
     // enumerate threads in the process
     HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
-    if (hSnapshot == INVALID_HANDLE_VALUE) 
-    {
+    if (hSnapshot == INVALID_HANDLE_VALUE) {
         printf("Failed to create thread snapshot.\n");
         CloseHandle(hProcess);
         return 1;
@@ -54,12 +49,9 @@ int main(int argc, char* argv[])
     THREADENTRY32 te;
     te.dwSize = sizeof(te);
 
-    if (Thread32First(hSnapshot, &te)) 
-    {
-        do 
-        {
-            if (te.th32OwnerProcessID == pid) 
-            {
+    if (Thread32First(hSnapshot, &te)) {
+        do {
+            if (te.th32OwnerProcessID == pid) {
                 HANDLE hThread = OpenThread(THREAD_ALL_ACCESS, FALSE, te.th32ThreadID);
                 if (hThread) {
                     CONTEXT ctx;
@@ -67,8 +59,7 @@ int main(int argc, char* argv[])
 
                     SuspendThread(hThread); // pause the thread
 
-                    if (GetThreadContext(hThread, &ctx)) 
-                    {
+                    if (GetThreadContext(hThread, &ctx)) {
                         printf("Thread ID: %lu\n", te.th32ThreadID);
                         PrintRegisters(&ctx);
                         printf("-------------------------\n");
